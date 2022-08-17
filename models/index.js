@@ -17,22 +17,6 @@ Post.belongsTo(User, {
     onDelete: 'SET NULL'
 })
 
-User.belongsToMany(Post, {
-    through: 'rate',
-    as: 'rating',
-
-    foreignKey: 'user_id',
-    onDelete: 'SET NULL'
-})
-
-Post.belongsToMany(User, {
-    through: 'rate',
-    as: 'rating',
-
-    foreignKey: 'post_id',
-    onDelete: 'SET NULL'
-})
-
 
 
 /*
@@ -59,4 +43,4 @@ Post.hasMany(Comment, {
     onDelete: 'SET NULL'
 })
 
-module.exports = {User};
+module.exports = {User, Post, Comment};
