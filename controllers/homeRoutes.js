@@ -136,4 +136,9 @@ router.get('/dashboard', (req, res) => {
     res.render('dashboard');
   }
 })
+
+//GET readirect a user to create a new post
+router.get('/new-post', (req, res) => {
+  res.render('new-post', {loggedIn: req.session.loggedIn});
+})
 module.exports = router;

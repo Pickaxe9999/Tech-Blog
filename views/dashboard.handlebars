@@ -1,19 +1,6 @@
 {{#if loggedIn}}
+<a href="/new-post"><button>+ Post</button></a>
 <p>{{username}}</p>
-<form class="post-form">
-  <div>
-    <p>New Post Title</p>
-    <input name="post-title">
-  </div>
-
-  <div>
-    <p>Post description</p>
-    <textarea name="post-body"></textarea>
-  </div>
-
-  <div>
-    <button type="submit">Submit Post</button>
-  </div>
 
   <ul class="post-list">
   {{#each posts as |post|}}
@@ -22,7 +9,5 @@
   </li>
   {{/each}}
 </ul>
-
-  <script src="/javascript/dahsboard.js"></script>
 </form>
 {{/if}}

@@ -18,7 +18,7 @@ async function postFormHandler(event) {
         })
 
         if(response.ok){
-            document.location.reload();
+            window.location.assign('/dashboard');
         }else{
             alert(response.statusText);
         }
