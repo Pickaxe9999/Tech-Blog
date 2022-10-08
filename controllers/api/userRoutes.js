@@ -1,8 +1,6 @@
 const express = require("express");
 const {User, Comment, Post, Rate} = require("../../models/");
 const router = express.Router();
-const {checkPassword} = require('../../util/helpers');
-let user;
 
 // GET /api/user    get all user information from the database
 router.get("/", (req,res) =>{
@@ -80,54 +78,32 @@ router.delete("/:id", (req, res) =>{
 
 // POST /api/user/login   checks the user input information against the database for wether or not a user can login
 router.post('/login', (req, res) => {
+  // expects {email: 'lernantino@gmail.com', password: 'password1234'}
   User.findOne({
     where: {
       email: req.body.email
     }
   }).then(dbUserData => {
-    //responsd to the client with error 400 if no user is found under that email and returns undefined for the following then statement
     if (!dbUserData) {
-      res.status(400).json({ error: 'No user with that email address!' });
+      res.status(400).json({ message: 'No user with that email address!' });
       return;
     }
-    user = dbUserData;
+    const validPassword = dbUserData.checkPassword(req.body.password);
 
-    //checks the user input password against the hashed password stored in the database
-    async function validatePassword(input, hash){
-      const validate = await checkPassword(input, hash)
-      return validate;
-    }
-
-    //returns the result of the password check
-    return validatePassword(req.body.password, dbUserData.dataValues.password);
-  }).then(result => {
-
-    //if the email doesn't match anything in the database then result should be undefined and not true/false
-    if(result === undefined){
+    if (!validPassword) {
+      res.status(400).json({ message: 'Incorrect password!' });
       return;
     }
 
-    //if ValidatePassword returns false for matching passwords
-    if(!result){
-      res.status(400).json({error: 'Incorrect Password!'});
-      return;
-    }
-
-    //if ValidatePassword returns true for matching passwords
-    if(result){
-      req.session.save(() => {
-      // declare session variables
-      req.session.user_id = user.id;
-      req.session.username = user.username;
+    req.session.save(() => {
+      req.session.user_id = dbUserData.id;
+      req.session.username = dbUserData.username;
       req.session.loggedIn = true;
-
-      res.json({ user: user, message: 'You are now logged in!' });
-      return;
+  
+      res.json({ user: dbUserData, message: 'You are now logged in!' });
     });
-    }
-    
   });
-})
+});
 
 //POST /api/user/logout   logout a user from their session
 router.post('/logout', (req, res) => {

@@ -6,7 +6,6 @@ const router = express.Router()
 router.get("/", (req,res) =>{
   Comment.findAll()
   .then(dbUserData => {
-    console.log(dbUserData)
     res.json(dbUserData)
   })
   .catch(err =>{
@@ -52,7 +51,6 @@ router.post("/", (req,res) =>{
 
 // DELETE /api/comment    remove a comment based on id
 router.delete("/:id", (req, res) =>{
-  console.log('id', req.params.id);
   Comment.destroy({
     where: {
       id: req.params.id
