@@ -18,6 +18,10 @@ Post.init(
         key: 'id'
       }
     },
+    post_title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     post_text: {
       type: DataTypes.STRING,
       allowNull: false

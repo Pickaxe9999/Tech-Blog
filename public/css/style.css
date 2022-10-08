@@ -21,6 +21,10 @@
     color: #3486eb;
   }
   
+  ol, ul {
+    list-style: none;
+  }
+  
   button {
     background-color: #225ca3;
     border: 0;

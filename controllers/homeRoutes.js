@@ -4,14 +4,11 @@ const sequelize = require('sequelize');
 
 // GET redirect user to the main homepage and render all posts
 router.get('/', (req, res)=>{
-  if(!req.session.loggedIn){
-    res.redirect('/login');
-    return;
-  }
 
   Post.findAll({
       attributes: [
         'id',
+        'post_title',
         'post_text',
         'user_id',
         'created_at'
@@ -45,6 +42,7 @@ router.get('/post/:id', (req, res)=>{
     },
     attributes: [
       'id',
+      'post_title',
       'post_text',
       'user_id',
       'created_at'
@@ -65,7 +63,6 @@ router.get('/post/:id', (req, res)=>{
     ]
   })
     .then(dbPostData => {
-      console.log(dbPostData)
       if (!dbPostData) {
         res.status(404).json({ message: 'No post found with this id' });
         return;
@@ -73,7 +70,6 @@ router.get('/post/:id', (req, res)=>{
 
       // serialize the data
       const post = dbPostData.get({ plain: true });
-      console.log(post)
 
       // pass data to template
       res.render('single-post', {post, loggedIn: req.session.loggedIn});
@@ -95,4 +91,49 @@ router.get('/login', (req, res) => {
     res.render('login');
 })
 
+// GET redirect a user to the dashboard to seel all their posts and create new posts
+router.get('/dashboard', (req, res) => {
+  if(req.session.loggedIn){
+    Post.findAll({
+      where: {
+        user_id: req.session.user_id
+      },
+      attributes: [
+        'id',
+        'post_title',
+        'post_text',
+        'user_id',
+        'created_at'
+      ],
+      include: [
+        {
+          model: Comment,
+          attributes: ['id', 'comment_text', 'post_id', 'user_id'],
+          include: {
+            model: User,
+            attributes: ['username']
+          }
+        },
+        {
+          model: User,
+          attributes: ['username']
+        }
+      ]
+    }).then(dbUserData => {
+      if (!dbUserData) {
+        res.status(404).json({ message: 'You need to log in!' });
+        return;
+      }
+      const posts = dbUserData.map(post => post.get({ plain: true }));
+  
+      res.render('dashboard', {posts, loggedIn: req.session.loggedIn, username: req.session.username })
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+  }else{
+    res.render('dashboard');
+  }
+})
 module.exports = router;

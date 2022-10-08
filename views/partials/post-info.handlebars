@@ -1,8 +1,11 @@
 <article class="post">
-    <div class="meta">
-        {{post_text}}</br>
-        {{vote_count}} point(s) by {{user.username}} on
-        {{format_date created_at}}
-        <a href="/post/{{id}}">{{comments.length}} {{format_plural 'comment' comments.length}}</a>
-    </div>
+    <a href="/post/{{id}}">
+        <div class="meta">
+            {{post_title}}</br>
+            {{post_text}}</br>
+            {{vote_count}} Posted by {{user.username}} on
+            {{format_date created_at}}
+            {{comments.length}} {{format_plural 'comment' comments.length}}
+        </div>
+    </a>
 </article>

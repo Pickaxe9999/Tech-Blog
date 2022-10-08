@@ -15,7 +15,7 @@ router.get("/", (req,res) =>{
     })
 });
 
-// GET /api/post/1    retrieve a specific post based on the id of the user
+// GET /api/post/1    retrieve a specific post based on the post selected
 router.get("/:id", (req,res) =>{
   Post.findOne({
     where: {
@@ -38,8 +38,8 @@ router.get("/:id", (req,res) =>{
 // POST /api/post   add a post to the database
 router.post("/", (req,res) =>{
   Post.create({
-    id: req.body.id,
-    user_id: req.body.user_id,
+    user_id: req.session.user_id,
+    post_title: req.body.post_title,
     post_text: req.body.post_text
   })
     .then(dbUserData => res.json(dbUserData))
@@ -51,7 +51,6 @@ router.post("/", (req,res) =>{
 
 // DELETE /api/post/1   remove a specific post from the db
 router.delete("/:id", (req, res) =>{
-  console.log('id', req.params.id);
   Post.destroy({
     where: {
       id: req.params.id
