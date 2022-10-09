@@ -22,7 +22,7 @@
 Create a website where users can share interesting things happening in the tech world.
 
 ## Installation
-Download the repository and unzip to an empty folder. Then run npm install to install all necissary dependencies. Once done invoke npm start to host the website on you local machine at http://localhost:3001. Or visit (here) for the deployed application.
+Download the repository and unzip to an empty folder. Then run npm install to install all necissary dependencies. Once done invoke npm start to host the website on you local machine at http://localhost:3001. Or visit https://enigmatic-bastion-08166.herokuapp.com/ for the deployed application.
 
 ## Usage
 To share tech news with friends or collegues
