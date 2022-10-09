@@ -1,13 +1,42 @@
+# Tech-Blog
 
-WHEN I click on the dashboard option in the navigation
-THEN I am taken to the dashboard and presented with any blog posts I have already created and the option to add a new blog post
-WHEN I click on the button to add a new blog post
-THEN I am prompted to enter both a title and contents for my blog post
-WHEN I click on the button to create a new blog post
-THEN the title and contents of my post are saved and I am taken back to an updated dashboard with my new blog post
-WHEN I click on one of my existing posts in the dashboard
-THEN I am able to delete or update my post and taken back to an updated dashboard
-WHEN I click on the logout option in the navigation
-THEN I am signed out of the site
-WHEN I am idle on the site for more than a set time
-THEN I am able to view comments but I am prompted to log in again before I can add, update, or delete comments
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+
+## Table of contents
+[Description](#description)
+
+[Installation](#installation)
+
+[Usage](#usage)
+
+[Contributors](#contributors)
+
+[Testing](#how-to-test)
+
+[Questions?](#questions)
+
+[License Information](#license-information)
+
+## Description
+Create a website where users can share interesting things happening in the tech world.
+
+## Installation
+Download the repository and unzip to an empty folder. Then run npm install to install all necissary dependencies. Once done invoke npm start to host the website on you local machine at http://localhost:3001. Or visit (here) for the deployed application.
+
+## Usage
+To share tech news with friends or collegues
+
+## Contributors
+Jacob Hannah
+
+## How to test
+Once installed and running open a new terminal and invoke node seeds/index.js to populate with sample data.
+
+## Questions?
+GitHub: [Pickaxe9999](https://github.com/Pickaxe9999)
+
+For any aditional question you can reach me at [jacob.hannah164@gmail.com](jacob.hannah164@gmail.com)
+
+## License Information
+This project is licensed under the [MIT](https://opensource.org/licenses/MIT) license. 
